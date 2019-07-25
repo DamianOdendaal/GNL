@@ -1,0 +1,26 @@
+understanding the work before jumping straight in
+
+
+firstly, what is a file descriptor
+
+a file descriptor is an index into the file descriptor table,  what does that mean?
+
+so within our O.S. we have something called the PCB which is the process control block of our computer or we could refer to it as the tast controlling block
+
+now the pcb has something called the file descriptor table within it and the F.D.T. holds pointers to resources such as files , input and output to the terminal and so fourth.
+
+so back to fd's
+
+say for example i wanted to create a file, id do something like this
+
+	fd = create("Myfile.txt", (specific permission that you wanna give) );
+
+now when i wanna do something like read from that file i can then use my fd as a handle to the file ive then created 
+
+you can do other cool stuff like write since the first parameter of write takes in a file descriptor
+
+
+now reading from a file descriptor is like thinking of a book , you first need to open the book before you read it dont you?
+then when you done you must remember to close the book
+
+

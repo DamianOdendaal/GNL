@@ -1,0 +1,28 @@
+
+
+1.) Do error checks first to get that out of the way
+
+what would make my GNL return EOF (End of file (-1)) or even give me an error
+
+if the read function didnt sucessfuly read , meaning the void * that it takes in the parameters could be something like NULL or even something like the buff size being 0
+
+or if my fd is smaller than 0 , or if line doesn't exist
+
+2.) Now i need to read from the buffer, how?
+	we make use of the read function (bare in mind that what ever was returned from read needs to be greater than 1, dont forget to cater for that) 
+
+	bare in mind that you need to read till you find a '\n' char 
+	when you do you have done what you need to do for the time being 
+
+	so we know that we read till we find a '\n' char then we store what ever we found before the new line into our **line 
+	
+	so according to my understanding we can locate the '\n' char within our string that is being read and then we can then perform string manipulation , meaning for example if i now find that '\n' which is now a '\0'
+i can use something like str sub to put what i found into line 
+
+back to error checking after we have read, we need to make sure that we have atleast read something, if not then we return eof 
+
+3.) printing or putting what we read back out to the terminal // ask for help from your mentor here
+
+(ask mentor why exactly do we create temporary variable, is it so that we can put what ever was in line somewhere for a while so that we can free the memory that was allocated for line then put what was in temp back into line? (just what i think) or is it there for a different reason)
+
+(ask mentor if since reads return type is a ssize_t do i need to declare something something of type ssize_t if i equate what ever ive read to that)
