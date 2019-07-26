@@ -1,5 +1,3 @@
-
-
 1.) Do error checks first to get that out of the way
 
 what would make my GNL return EOF (End of file (-1)) or even give me an error
@@ -21,7 +19,8 @@ i can use something like str sub to put what i found into line
 
 back to error checking after we have read, we need to make sure that we have atleast read something, if not then we return eof 
 
-3.) printing or putting what we read back out to the terminal // ask for help from your mentor here
+3.) printing or putting what we read back out to the terminal 
+// ask for help from your mentor here
 
 (ask mentor why exactly do we create temporary variable, is it so that we can put what ever was in line somewhere for a while so that we can free the memory that was allocated for line then put what was in temp back into line? (just what i think) or is it there for a different reason)
 

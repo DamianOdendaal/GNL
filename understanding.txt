@@ -23,4 +23,11 @@ you can do other cool stuff like write since the first parameter of write takes 
 now reading from a file descriptor is like thinking of a book , you first need to open the book before you read it dont you?
 then when you done you must remember to close the book
 
+the next thing we need to understand is static variables, so why we use a static variable in our gnl is because static variables keep their valued unlike normal variables so if we think of why we would use a static variable in our gnl is because we need to call our gnl in a lop if we want it to read until there is nothing left to read, because its called in a loop then our gnl needs to remember where it last left off then it can continue reading, hence the use of a static variable in our get next line
+
+from there we need to understand how to read from the file descriptor, this is were one of our helpful sys calls come in which is read, read takes in a file descriptor , a void pointer and the size you tell it to read, almost like how write you tell it how much tp write out, now with read you tell it to read a specific ammount 
+
+
+then we need to understand what a buffer is 
+
 
