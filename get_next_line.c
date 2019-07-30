@@ -27,8 +27,34 @@ int		buff_read(int fd, char **buff)
 		temp[bytes_read] = '\0';
 		store = ft_strjoin(*buff, temp);
 		free(buff);
-
+		buff = store; /*if you get errors here is a good place to look first*/
 	}
+	return(1);
+}
+
+char	*ft_output(char **buff)
+{
+	char	*line;
+	char	*newl;
+	char	store;
+
+	newl = ft_strchr(*buff,  '\n');
+	if (newl)
+	{
+		newl = '\0';
+		line = ft_strdup(*buff);
+		store = ft_strdup(*buff + 1);
+		free(buff);
+		buff = store;
+	}
+	else
+	{
+		line = ft_strdup(*buff);
+		free(buff);
+	}
+	return(line);
+
+}
 
 int		get_next_line(const int fd, char **line)
 {
@@ -38,10 +64,9 @@ int		get_next_line(const int fd, char **line)
 	if (fd < 0 || read(fd, NULL, 0) || !line)
 		return(-1);
 	buff = ft_strnew(BUFF_SIZE);
-	
-	/*read from the buffer here 
-	then do error check for buffer read here*/
-
-
+	while (buff_read(fd, line) == 1)
+	{
+		
+	}
 
 }
