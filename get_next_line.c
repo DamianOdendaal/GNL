@@ -6,7 +6,7 @@
 /*   By: dodendaa <dodendaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 11:38:45 by event             #+#    #+#             */
-/*   Updated: 2019/07/29 16:56:36 by dodendaa         ###   ########.fr       */
+/*   Updated: 2019/08/01 16:17:58 by dodendaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,12 @@ int		get_next_line(const int fd, char **line)
 {
 	static char *stat[4096];
 	char *buff;
+	char *ret;
 
 	if (fd < 0 || read(fd, NULL, 0) || !line)
 		return(-1);
 	buff = ft_strnew(BUFF_SIZE);
 	while (buff_read(fd, line) == 1)
-	{
-		
-	}
-
+		ret = ft_output(line);
+	return(1);
 }
