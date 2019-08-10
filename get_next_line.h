@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dodendaa <dodendaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dodendaa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 09:36:24 by dodendaa          #+#    #+#             */
 /*   Updated: 2019/07/26 14:41:17 by dodendaa         ###   ########.fr       */

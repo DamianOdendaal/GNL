@@ -10,6 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+// insert new headers in your files 
+
+
 #include "get_next_line.h"
 
 int		buff_read(int fd, char **buff)
