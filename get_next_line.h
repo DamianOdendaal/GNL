@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: event <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: dodendaa <dodendaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/26 09:36:24 by event             #+#    #+#             */
-/*   Updated: 2019/07/26 14:41:17 by event            ###   ########.fr       */
+/*   Created: 2019/07/26 09:36:24 by dodendaa          #+#    #+#             */
+/*   Updated: 2019/07/26 14:41:17 by dodendaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <sys/types.h>
 # include <fcntl.h>
 
-int		buff_read(char **line, char * buff);
-char	*ft_output( char **buff);
+int		buff_read(int fd, char **buff);
+char	*ft_output(char **buff);
 int		get_next_line(const int fd, char **line);
 
 #endif
