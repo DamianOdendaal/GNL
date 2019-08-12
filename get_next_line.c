@@ -26,7 +26,7 @@ char	*line_join(char *line, char *buff)
 }
 
 
-int		buff_reader(int fd, char **buff)
+int		line_reader(int fd, char **buff)
 {
 	int bytes_read;
 	char temp[BUFF_SIZE + 1];
@@ -36,11 +36,11 @@ int		buff_reader(int fd, char **buff)
 		if(buff[fd] == NULL)
 			buff[fd] = ft_strdup(buff);
 		else
-			buff[fd] = line_join(buff , temp);
+			buff[fd] = line_join(buff[fd] , temp);
  		if(ft_strchr(buff[fd], '\n'))
-			break;// if we encounter a newline within the while break
+			break;
 	}
-
+	return(res);
 }
 
 
@@ -92,10 +92,11 @@ char	*ft_output(char **buff)
 int		get_next_line(const int fd, char **line)
 {
 	static char *stat[4096];
-
+	int			res;
 	if (fd < 0 || read(fd, NULL, 0) || !line || fd > MFD)
 		return(-1);	
-	if(buff_read(fd, &stat[fd]) <= 0)
+	res = line_reader(fd, line)
+	if(res < 0)
 		return(-1);
 	if(ft_strlen(stat[fd]) == 0)
 		return(0);
