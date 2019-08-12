@@ -15,7 +15,37 @@
 
 #include "get_next_line.h"
 
-int		buff_read(int fd, char **buff)
+char	*line_join(char *line, char *buff)
+{
+	char *str;
+
+	str = ft_strjoin(line, buff);
+	free(line);
+	return(str);
+
+}
+
+
+int		buff_reader(int fd, char **buff)
+{
+	int bytes_read;
+	char temp[BUFF_SIZE + 1];
+
+	while(bytes_read = read(fd, temp, BUFF_SIZE) > 0)
+	{
+		if(buff[fd] == NULL)
+			buff[fd] = ft_strdup(buff);
+		else
+			buff[fd] = line_join(buff , temp);
+ 		if(ft_strchr(buff[fd], '\n'))
+			break;// if we encounter a newline within the while break
+	}
+
+}
+
+
+
+/*int		buff_read(int fd, char **buff)
 {
 	int		bytes_read;
 	char	*store;
@@ -25,7 +55,7 @@ int		buff_read(int fd, char **buff)
 		if (!(*buff))
 			*buff = ft_strnew(0);
 		bytes_read = read(fd, temp, BUFF_SIZE);
-		if (bytes_read <= 0)
+		if (bytes_read < 0)
 			return (0);
 		temp[bytes_read] = '\0';
 		store = ft_strjoin(*buff, temp);
@@ -33,7 +63,7 @@ int		buff_read(int fd, char **buff)
 		*buff = store;
 	}
 	return(1);
-}
+}*/
 
 char	*ft_output(char **buff)
 {
@@ -41,7 +71,7 @@ char	*ft_output(char **buff)
 	char	*newl;
 	char	*hold;
 
-	newl = ft_strchr(*buff,  '\n');
+	newl = ft_strchr(*buff, '\n');
 	if (newl)
 	{
 		*newl = '\0';
@@ -65,7 +95,7 @@ int		get_next_line(const int fd, char **line)
 
 	if (fd < 0 || read(fd, NULL, 0) || !line || fd > MFD)
 		return(-1);	
-	if(buff_read(fd, &stat[fd]) < 0)
+	if(buff_read(fd, &stat[fd]) <= 0)
 		return(-1);
 	if(ft_strlen(stat[fd]) == 0)
 		return(0);
