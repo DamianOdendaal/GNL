@@ -1,105 +1,65 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dodendaa <dodendaa@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/26 11:38:45 by dodendaa          #+#    #+#             */
-/*   Updated: 2019/08/01 16:17:58 by dodendaa         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-// insert new headers in your files 
-
-
 #include "get_next_line.h"
+#include <stdio.h>
 
-char	*line_join(char *line, char *buff)
+int		ft_output(char **hold, char **line)
 {
-	char *str;
-
-	str = ft_strjoin(line, buff);
-	free(line);
-	return(str);
-
-}
-
-
-int		line_reader(int fd, char **buff)
-{
-	int bytes_read;
-	char temp[BUFF_SIZE + 1];
-
-	while(bytes_read = read(fd, temp, BUFF_SIZE) > 0)
+	char *temp;
+	char *newl;
+	newl = ft_strchr(*hold, '\n');
+	if(newl)
 	{
-		if(buff[fd] == NULL)
-			buff[fd] = ft_strdup(buff);
-		else
-			buff[fd] = line_join(buff[fd] , temp);
- 		if(ft_strchr(buff[fd], '\n'))
-			break;
-	}
-	return(res);
-}
-
-
-
-/*int		buff_read(int fd, char **buff)
-{
-	int		bytes_read;
-	char	*store;
-	char	temp[BUFF_SIZE + 1];
-	while(!(ft_strchr(*buff, '\n')))
-	{
-		if (!(*buff))
-			*buff = ft_strnew(0);
-		bytes_read = read(fd, temp, BUFF_SIZE);
-		if (bytes_read < 0)
-			return (0);
-		temp[bytes_read] = '\0';
-		store = ft_strjoin(*buff, temp);
-		free(*buff);
-		*buff = store;
-	}
-	return(1);
-}*/
-
-char	*ft_output(char **buff)
-{
-	char	*line;
-	char	*newl;
-	char	*hold;
-
-	newl = ft_strchr(*buff, '\n');
-	if (newl)
-	{
-		*newl = '\0';
-		line = ft_strdup(*buff);
-		hold = ft_strdup(*buff + 1);
-		free(*buff);
-		*buff = hold;
+		*(ft_strchr(*hold, '\n')) = '\0';
+		*line = ft_strdup(*hold);
+		temp = ft_strdup(newl + 1);
+		free(*hold);
+		if(temp)
+		{
+			*hold = ft_strdup(temp);
+			free(temp);
+		}
 	}
 	else
 	{
-		line = ft_strdup(*buff);
-		free(*buff);
+		*line = ft_strdup(*hold);
+		free(*hold);
 	}
-	return(line);
+	return(1);
+}
+
+int 	buff_read(int fd, char *stat)
+{
+	char temp[BUFF_SIZE + 1];
+	char *store;
+	size_t ret;
+
+	while ((ft_strchr(stat, '\n') == NULL))
+	{
+		ret = read(fd, temp, BUFF_SIZE);
+		if(ret <= 0)
+			return(0);
+		temp[ret] = '\0';
+		store = ft_strjoin(stat, temp);
+		free(stat);
+		stat = ft_strdup(temp);
+	}
+	return(1);
+
 
 }
 
 int		get_next_line(const int fd, char **line)
 {
 	static char *stat[4096];
-	int			res;
-	if (fd < 0 || read(fd, NULL, 0) || !line || fd > MFD)
-		return(-1);	
-	res = line_reader(fd, line)
-	if(res < 0)
+	int			ret;
+	if(fd < 0 || fd > MFD || read(fd, NULL, 0 || !line))
+		return(-1);
+	if (stat[fd] == NULL)
+		stat[fd] = ft_strnew(0);
+	ret = buff_read(fd, stat[fd]);
+
+	if(ret < 0)
 		return(-1);
 	if(ft_strlen(stat[fd]) == 0)
 		return(0);
-	*line = ft_output(&stat[fd]);
-	return(1);
+	return(ft_output(&stat[fd], line));
 }

@@ -17,9 +17,10 @@
 # include "../libft/libft.h"
 # include <sys/types.h>
 # include <fcntl.h>
+# include <string.h>
 
-int		buff_read(int fd, char **buff);
-char	*ft_output(char **buff);
+/*int		buff_read(int fd, char *stat);
+int 	ft_output(char **hold, char **line);*/
 int		get_next_line(const int fd, char **line);
 
 #endif
