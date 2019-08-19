@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 # define BUFF_SIZE 64
 # define MFD 4096
-# include "../libft/libft.h"
+# include "libft/libft.h"
 # include <sys/types.h>
 # include <fcntl.h>
 # include <string.h>

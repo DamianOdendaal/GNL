@@ -10,6 +10,7 @@ int main(int ac, char **av)
     
     /*if(ac == 1)
         return(0);*/
+    fd = 0;
     if(ac == 2)
         fd = open(av[1], O_RDONLY);
     while(get_next_line(fd, &line) > 0)
