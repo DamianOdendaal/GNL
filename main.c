@@ -12,7 +12,7 @@ int main(int ac, char **av)
     while(get_next_line(fd, &line) > 0)
     {
         ft_putendl(line);
-        free(line);
+        ft_strdel(&line);
     }
         close(fd);
 }
