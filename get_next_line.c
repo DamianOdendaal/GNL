@@ -49,8 +49,8 @@ int		ft_output(char **hold, char **line)
 	char *temp;
 	char *newl;
 
-	newl = ft_strchr(*hold, '\n');
-	// try a while loop that would get you to the newl char and or to the null terminator
+	//newl = ft_strchr(*hold, '\n');
+	
 	if (newl)
 	{
 		*newl = '\0';
@@ -72,6 +72,39 @@ int		ft_output(char **hold, char **line)
 	}
 	return (1);
 }
+
+// int		ft_output(char **hold, char **line)
+// {
+// 	char *temp;
+// 	char *newl;
+// 	int i;
+
+// 	i = 0;
+// 	//newl = ft_strchr(*hold, '\n');
+	
+// 	while (*hold[i] != '\0' || *hold[i] != '\n')
+// 		i++;
+// 	if (*hold[i] == '\n')
+// 	{
+// 		*hold[i] = '\0';
+// 		*line = ft_strdup(*hold);
+// 		temp = ft_strdup(hold[i++]);
+// 		ft_strdel(hold);
+// 		if (temp)
+// 		{
+// 			*hold = ft_strdup(temp);
+// 			ft_strdel(&temp);
+// 		}
+// 		if ((*line)[0] == '\0')
+// 			ft_strdel(line);  // just for testing purposes
+// 	}
+// 	else
+// 	{
+// 		*line = ft_strdup(*hold);
+// 		ft_strdel(hold);
+// 	}
+// 	return (1);
+// }
 
 int		get_next_line(const int fd, char **line)
 {
