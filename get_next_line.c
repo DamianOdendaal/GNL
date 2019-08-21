@@ -12,56 +12,37 @@
 
 #include "get_next_line.h"
 
-// char	*ft_join(char *line, char *buff)
-// {
-// 	char *str;
-
-// 	str = ft_strjoin(line, buff);
-// 	ft_strdel(&line);
-//	return (str);
-
-// }
-
-//int		ft_str_reader(int fd, char **line)
-//{
-//	char	buff[BUFF_SIZE + 1];
-//	int 	res;
-//	
-//	while ((res = read(fd, tmep, BUFF_SIZE)))
-//	{
-//		buff[ret] = '\0';
-//		if (line[fd] == NULL)
-//			line[fd] = ft_strdup(buff);
-//		else
-//			line[fd] = ft_join(*line, buff);
-//		if (ft_strchr(line[fd], '\n'))
-//			break;
-//	}
-//	return (res);
-//}
-
-// test code to see if my reading is wrong
-
-int		buff_read(int fd, char **stat)
+char	*ft_join(char *line, char *buff)
 {
-	char	temp[BUFF_SIZE + 1];
-	char	*store;
-	size_t	ret;
+	char *str;
 
-	if (*stat == NULL)
-		*stat = ft_strnew(0);
-	while ((ft_strchr(*stat, '\n') != NULL))
-	{
-		ret = read(fd, temp, BUFF_SIZE);
-		if (ret < 0)
-			return (0);
-		temp[ret] = '\0';
-		store = ft_strjoin(*stat, temp);
-		ft_strdel(stat);
-		*stat = ft_strdup(temp);
-	}
-	return (1);
+	str = ft_strjoin(line, buff);
+	ft_strdel(&line);
+	return (str);
+
 }
+
+int		buff_read(int fd, char **line)
+{
+	char	buff[BUFF_SIZE + 1];
+	int 	res;
+	
+	if (!*line)
+		*line = ft_strnew(0);
+
+	while ((res = read(fd, buff, BUFF_SIZE)) > 0)
+	{
+		buff[res] = '\0';
+		if (*line == NULL)
+			*line = ft_strdup(buff);
+		else
+			*line = ft_join(*line, buff);
+		if (ft_strchr(*line, '\n'))
+			break;
+	}
+	return (res);
+}
+
 
 int		ft_output(char **hold, char **line)
 {
@@ -97,7 +78,7 @@ int		get_next_line(const int fd, char **line)
 	static char *stat[MFD];
 	int			ret;
 
-	if (fd < 0 || fd > MFD || read(fd, stat[fd] , 0) < 0 || !line)
+	if (fd < 0 || fd > MFD || read(fd, stat[fd], 0) < 0 || !line)
 		return (-1);
 	ret = buff_read(fd, &stat[fd]);
 	if (ret < 0)
