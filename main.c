@@ -52,15 +52,15 @@ static void test01()
         write(fd2, line, strlen(line));
         write(fd2, "\n", 1);
     }
-    // if (line)
-    //     write(fd2, line, strlen(line));
+     if (line)
+         write(fd2, line, strlen(line));
     close(fd);
     close(fd2);
 
-    // system("diff sandbox/one_big_fat_line.txt sandbox/one_big_fat_line.txt.mine > sandbox/one_big_fat_line.diff");
-    // fd3 = open("sandbox/one_big_fat_line.diff", O_RDONLY);
-    // diff_file_size = read(fd3, NULL, 10);
-    // close(fd3);
+     system("diff sandbox/one_big_fat_line.txt sandbox/one_big_fat_line.txt.mine > sandbox/one_big_fat_line.diff");
+     fd3 = open("sandbox/one_big_fat_line.diff", O_RDONLY);
+     diff_file_size = read(fd3, NULL, 10);
+     close(fd3);
 }
 
 int main(void)

@@ -27,8 +27,8 @@ int		buff_read(int fd, char **line)
 	char	buff[BUFF_SIZE + 1];
 	int 	res;
 	
-	if (!*line)
-		*line = ft_strnew(0);
+/*	if (!*line)
+		*line = ft_strnew(0);*/
 
 	while ((res = read(fd, buff, BUFF_SIZE)) > 0)
 	{
@@ -48,10 +48,13 @@ int		ft_output(char **hold, char **line)
 {
 	char *temp;
 	char *newl;
-
-	//newl = ft_strchr(*hold, '\n');
+	int i;
 	
-	if (newl)
+	i = 0;
+	while ((*line)[i] != '\n' && (*line)[i] != '\0')
+		i++;
+	newl = ft_strchr(*hold, '\n');
+	if (newl != NULL)
 	{
 		*newl = '\0';
 		*line = ft_strdup(*hold);
@@ -62,13 +65,11 @@ int		ft_output(char **hold, char **line)
 			*hold = ft_strdup(temp);
 			ft_strdel(&temp);
 		}
-		if ((*line)[0] == '\0')
-			ft_strdel(line);  // just for testing purposes
 	}
 	else
 	{
 		*line = ft_strdup(*hold);
-		ft_strdel(hold);
+		ft_strdel(hold);// try memdel
 	}
 	return (1);
 }
@@ -80,7 +81,7 @@ int		ft_output(char **hold, char **line)
 // 	int i;
 
 // 	i = 0;
-// 	//newl = ft_strchr(*hold, '\n');
+// 	newl = ft_strchr(*hold, '\n');
 	
 // 	while (*hold[i] != '\0' || *hold[i] != '\n')
 // 		i++;
@@ -113,6 +114,8 @@ int		get_next_line(const int fd, char **line)
 
 	if (fd < 0 || fd > MFD || read(fd, stat[fd], 0) < 0 || !line)
 		return (-1);
+	if (!(stat[fd]))
+		stat[fd] = ft_strnew(0);
 	ret = buff_read(fd, &stat[fd]);
 	if (ret < 0)
 		return (-1);
