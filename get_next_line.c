@@ -6,11 +6,16 @@
 /*   By: dodendaa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/20 10:17:15 by dodendaa          #+#    #+#             */
-/*   Updated: 2019/08/20 10:17:18 by dodendaa         ###   ########.fr       */
+/*   Updated: 2019/08/23 09:33:22 by dodendaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
+
+int a=10;
+int* ptr =&a;
+
 
 char	*ft_join(char *line, char *buff)
 {
@@ -19,93 +24,73 @@ char	*ft_join(char *line, char *buff)
 	str = ft_strjoin(line, buff);
 	ft_strdel(&line);
 	return (str);
-
 }
 
-int		buff_read(int fd, char **line)
+int		buff_read(int fd, char **stat)
 {
 	char	buff[BUFF_SIZE + 1];
-	int 	res;
-	
-/*	if (!*line)
-		*line = ft_strnew(0);*/
+	int		res;
 
 	while ((res = read(fd, buff, BUFF_SIZE)) > 0)
 	{
 		buff[res] = '\0';
-		if (*line == NULL)
-			*line = ft_strdup(buff);
+		if (*stat == NULL)
+			*stat = ft_strdup(buff);
 		else
-			*line = ft_join(*line, buff);
-		if (ft_strchr(*line, '\n'))
-			break;
+			*stat = ft_join(*stat, buff);
+		if (ft_strchr(*stat, '\n'))
+			break ;
 	}
 	return (res);
 }
 
+// int		buff_read(int fd, char **line)
+// {
+// 	char	buff[BUFF_SIZE + 1];
+// 	int		res;
+
+// 	while ((res = read(fd, buff, BUFF_SIZE)) > 0)
+// 	{
+// 		buff[res] = '\0';
+// 		if (*line == NULL)
+// 			*line = ft_strdup(buff);
+// 		else
+// 			*line = ft_join(*line, buff);
+// 		if (ft_strchr(*line, '\n'))
+// 			break ;
+// 	}
+// 	return (res);
+// }
 
 int		ft_output(char **hold, char **line)
-{
+{ 
 	char *temp;
 	char *newl;
 	int i;
-	
+
 	i = 0;
-	while ((*line)[i] != '\n' && (*line)[i] != '\0')
-		i++;
 	newl = ft_strchr(*hold, '\n');
 	if (newl != NULL)
 	{
 		*newl = '\0';
 		*line = ft_strdup(*hold);
-		temp = ft_strdup(newl + 1);
-		ft_strdel(hold);
+		temp = ft_strdup(ft_strchr(*hold, '\0') + 1);
+		free(*hold);
+		// *hold = temp;
 		if (temp)
 		{
 			*hold = ft_strdup(temp);
-			ft_strdel(&temp);
+			free(temp);
 		}
 	}
 	else
 	{
 		*line = ft_strdup(*hold);
-		ft_strdel(hold);// try memdel
+		// *hold = NULL;
+		ft_memdel((void **)hold);
 	}
 	return (1);
 }
-
-// int		ft_output(char **hold, char **line)
-// {
-// 	char *temp;
-// 	char *newl;
-// 	int i;
-
-// 	i = 0;
-// 	newl = ft_strchr(*hold, '\n');
-	
-// 	while (*hold[i] != '\0' || *hold[i] != '\n')
-// 		i++;
-// 	if (*hold[i] == '\n')
-// 	{
-// 		*hold[i] = '\0';
-// 		*line = ft_strdup(*hold);
-// 		temp = ft_strdup(hold[i++]);
-// 		ft_strdel(hold);
-// 		if (temp)
-// 		{
-// 			*hold = ft_strdup(temp);
-// 			ft_strdel(&temp);
-// 		}
-// 		if ((*line)[0] == '\0')
-// 			ft_strdel(line);  // just for testing purposes
-// 	}
-// 	else
-// 	{
-// 		*line = ft_strdup(*hold);
-// 		ft_strdel(hold);
-// 	}
-// 	return (1);
-// }
 
 int		get_next_line(const int fd, char **line)
 {
