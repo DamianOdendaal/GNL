@@ -55,7 +55,7 @@ int		ft_output(char **hold, char **line)
 		*newl = '\0';
 		*line = ft_strdup(*hold);
 		printf("%s\n", *hold);
-		temp = ft_strdup(ft_strchr(*hold, '\n') + 1);
+		temp = ft_strdup(ft_strchr(*hold, '\0'));
 		ft_strdel(hold);
 		
 		*hold = temp;
