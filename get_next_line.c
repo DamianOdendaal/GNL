@@ -54,27 +54,19 @@ int		ft_output(char **hold, char **line)
 	{
 		*newl = '\0';
 		*line = ft_strdup(*hold);
-		temp = ft_strdup(ft_strchr(*hold, '\0') + 1);
-		free(*hold);
-		if (temp)
-		{
-			*hold = ft_strdup(temp);
-			free(temp);
-		}
+		printf("%s\n", *hold);
+		temp = ft_strdup(ft_strchr(*hold, '\n') + 1);
+		ft_strdel(hold);
+		
+		*hold = temp;
+		
 	}
 	else
 	{
 		*line = ft_strdup(*hold);
-		ft_memdel((void **)hold);
+		ft_strdel(hold);
 	}
 	return (1);
-}
-
-int		free_return(char **buff,  int ret)
-{
-	free(*buff);
-	buff = NULL;
-	return (ret);
 }
 
 int		get_next_line(const int fd, char **line)
@@ -83,12 +75,12 @@ int		get_next_line(const int fd, char **line)
 	int			ret;
 
 	if (fd < 0 || fd > MFD || read(fd, stat[fd], 0) < 0 || !line)
-		return (free_return(&stat[fd], -1));
+		return (-1);
 	if (!(stat[fd]))
 		stat[fd] = ft_strnew(0);
 	ret = buff_read(fd, &stat[fd]);
 	if (ret < 0)
-		return (free_return(&stat[fd], -1));
+		return (-1);
 	if (ft_strlen(stat[fd]) == 0)
 		return (0);
 	return (ft_output(&stat[fd], line));

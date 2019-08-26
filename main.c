@@ -1,22 +1,64 @@
 #include "get_next_line.h"
 #include <fcntl.h>
+#include <stdio.h>
 
-int main(int ac, char **av)
+
+
+
+
+static void simple_string()
 {
-    char *line;
-    int fd;
-    
-    fd = 0;
-    if(ac == 2)
-        fd = open(av[1], O_RDONLY);
-    while(get_next_line(fd, &line) > 0)
-    {
-        ft_putendl(line);
-        ft_strdel(&line);
-    }
-        sleep(60);
-        close(fd);
+	char 	*line;
+	int		out;
+	int		p[2];
+	int		fd;
+	int		gnl_ret;
+
+	out = dup(1);
+	pipe(p);
+
+	fd = 1;
+	dup2(p[1], fd);
+	write(fd, "abc\n\n", 5);
+	close(p[1]);
+	dup2(out, fd);
+
+	/* Read abc and new line */
+	gnl_ret = get_next_line(p[0], &line);
+
+	/* Read new line */
+	gnl_ret = get_next_line(p[0], &line);
+
+	/* Read again, but meet EOF */
+	gnl_ret = get_next_line(p[0], &line);
+
+	/* Let's do it once again */
+	gnl_ret = get_next_line(p[0], &line);
 }
+
+int main()
+{
+    simple_string();
+    return (0);
+}
+
+
+// int main(int ac, char **av)
+// {
+//     char *line;
+//     int fd;
+    
+//     fd = 0;
+//     if(ac == 2)
+//         fd = open(av[1], O_RDONLY);
+//     while(get_next_line(fd, &line) > 0)
+//     {
+//         ft_putendl(line);
+//         ft_strdel(&line);
+//     }
+//         sleep(60);
+//         close(fd);
+// }
 
 // #include <string.h>
 // #include <strings.h>
