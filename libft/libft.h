@@ -26,8 +26,7 @@ typedef struct		s_list
 size_t				ft_intlen(long int num);
 char				*ft_strndup(const char *str, size_t n);
 int					ft_iswhitespace(char c);
-size_t				ft_wordcount(char *str, char delim);
-
+size_t				ft_wordcount(const char *s, char c);
 size_t				ft_strlen(const char *s);
 char				*ft_strdup(const char *str);
 char				*ft_strcpy(char *dest, char *src);
@@ -43,6 +42,7 @@ int					ft_strcmp(const char *s1, const char *s2);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 int					ft_atoi(const char *str);
 int					ft_isalpha(int c);
+int					ft_isspace(int c);
 int					ft_islower(int c);
 int					ft_isupper(int c);
 int					ft_isdigit(int c);
