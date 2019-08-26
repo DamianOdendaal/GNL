@@ -13,9 +13,6 @@
 #include "get_next_line.h"
 #include <stdio.h>
 
-int a=10;
-int* ptr =&a;
-
 
 char	*ft_join(char *line, char *buff)
 {
@@ -44,23 +41,6 @@ int		buff_read(int fd, char **stat)
 	return (res);
 }
 
-// int		buff_read(int fd, char **line)
-// {
-// 	char	buff[BUFF_SIZE + 1];
-// 	int		res;
-
-// 	while ((res = read(fd, buff, BUFF_SIZE)) > 0)
-// 	{
-// 		buff[res] = '\0';
-// 		if (*line == NULL)
-// 			*line = ft_strdup(buff);
-// 		else
-// 			*line = ft_join(*line, buff);
-// 		if (ft_strchr(*line, '\n'))
-// 			break ;
-// 	}
-// 	return (res);
-// }
 
 int		ft_output(char **hold, char **line)
 { 
@@ -76,7 +56,6 @@ int		ft_output(char **hold, char **line)
 		*line = ft_strdup(*hold);
 		temp = ft_strdup(ft_strchr(*hold, '\0') + 1);
 		free(*hold);
-		// *hold = temp;
 		if (temp)
 		{
 			*hold = ft_strdup(temp);
@@ -86,10 +65,16 @@ int		ft_output(char **hold, char **line)
 	else
 	{
 		*line = ft_strdup(*hold);
-		// *hold = NULL;
 		ft_memdel((void **)hold);
 	}
 	return (1);
+}
+
+int		free_return(char **buff,  int ret)
+{
+	free(*buff);
+	buff = NULL;
+	return (ret);
 }
 
 int		get_next_line(const int fd, char **line)
@@ -98,12 +83,12 @@ int		get_next_line(const int fd, char **line)
 	int			ret;
 
 	if (fd < 0 || fd > MFD || read(fd, stat[fd], 0) < 0 || !line)
-		return (-1);
+		return (free_return(&stat[fd], -1));
 	if (!(stat[fd]))
 		stat[fd] = ft_strnew(0);
 	ret = buff_read(fd, &stat[fd]);
 	if (ret < 0)
-		return (-1);
+		return (free_return(&stat[fd], -1));
 	if (ft_strlen(stat[fd]) == 0)
 		return (0);
 	return (ft_output(&stat[fd], line));
