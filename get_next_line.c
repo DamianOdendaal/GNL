@@ -11,15 +11,13 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
-
 
 char	*ft_join(char *line, char *buff)
 {
 	char *str;
 
 	str = ft_strjoin(line, buff);
-	ft_strdel(&line);
+	free(line);
 	return (str);
 }
 
@@ -46,26 +44,19 @@ int		ft_output(char **hold, char **line)
 { 
 	char *temp;
 	char *newl;
-	int i;
+	char *rest;
 
-	i = 0;
+	rest = ft_strchr(*hold, '\0');
 	newl = ft_strchr(*hold, '\n');
 	if (newl != NULL)
 	{
 		*newl = '\0';
-		*line = ft_strdup(*hold);
-		printf("%s\n", *hold);
-		temp = ft_strdup(ft_strchr(*hold, '\0'));
-		ft_strdel(hold);
-		
+		*line = *hold;
+		temp = (rest + 1);
 		*hold = temp;
-		
 	}
 	else
-	{
-		*line = ft_strdup(*hold);
-		ft_strdel(hold);
-	}
+		*line = *hold;
 	return (1);
 }
 
