@@ -17,7 +17,7 @@ char	*ft_join(char *line, char *buff)
 	char *str;
 
 	str = ft_strjoin(line, buff);
-	free(line);
+	ft_strdel(&line);
 	return (str);
 }
 
