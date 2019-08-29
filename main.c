@@ -53,14 +53,16 @@ int main(int ac, char **av)
     
     fd = 0;
     if(ac == 2)
-        fd = open(av[1], O_RDONLY);
-    while(get_next_line(fd, &line) > 0)
     {
-        ft_putendl(line);
-        // ft_strdel(&line);
+        fd = open(av[1], O_RDONLY);
+        while(get_next_line(fd, &line) > 0)
+        {
+            ft_putendl(line);
+            free(line);
+        }
+            sleep(60);
+            close(fd);
     }
-        sleep(60);
-        close(fd);
 }
 
 
