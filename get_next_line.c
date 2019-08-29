@@ -52,7 +52,7 @@ int		ft_output(char **hold, char **line)
 	{
 		*newl = '\0';
 		*line = *hold;
-		temp = (rest + 1);
+		temp = ft_strdup(newl + 1);
 		*hold = temp;
 	}
 	else

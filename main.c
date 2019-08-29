@@ -58,8 +58,7 @@ int main(int ac, char **av)
         while(get_next_line(fd, &line) > 0)
         {
             ft_putendl(line);
-            if (line)
-                ft_strdel(&line);
+            ft_strdel(&line);
         }
             sleep(60);
             close(fd);
