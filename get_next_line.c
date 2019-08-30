@@ -56,7 +56,8 @@ int		ft_output(char **hold, char **line)
 		*hold = temp;
 	}
 	else
-		*line = *hold;
+		*line = ft_strdup(*hold);
+		ft_strdel(hold);
 	return (1);
 }
 

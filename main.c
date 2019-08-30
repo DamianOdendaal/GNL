@@ -60,7 +60,7 @@ int main(int ac, char **av)
             ft_putendl(line);
             ft_strdel(&line);
         }
-            sleep(60);
+            // sleep(60);
             close(fd);
     }
 }
