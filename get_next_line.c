@@ -6,58 +6,53 @@
 /*   By: dodendaa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/20 10:17:15 by dodendaa          #+#    #+#             */
-/*   Updated: 2019/08/23 09:33:22 by dodendaa         ###   ########.fr       */
+/*   Updated: 2019/09/09 13:42:17 by dodendaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_join(char *line, char *buff)
-{
-	char *str;
-
-	str = ft_strjoin(line, buff);
-	ft_strdel(&line);
-	return (str);
-}
 
 int		buff_read(int fd, char **stat)
 {
+	char	*store;
+	int		read_bytes;
 	char	buff[BUFF_SIZE + 1];
-	int		res;
 
-	while ((res = read(fd, buff, BUFF_SIZE)) > 0)
+	while (ft_strchr(*stat, '\n') == NULL)
 	{
-		buff[res] = '\0';
-		if (*stat == NULL)
-			*stat = ft_strdup(buff);
-		else
-			*stat = ft_join(*stat, buff);
-		if (ft_strchr(*stat, '\n'))
+		read_bytes = read(fd, buff, BUFF_SIZE);
+		buff[read_bytes] = '\0';
+		if (read_bytes == 0)
 			break ;
+		store = ft_strjoin(*stat, buff);
+		free(*stat);
+		*stat = ft_strdup(store);
+		free(store);
 	}
-	return (res);
+	return (1);
 }
 
-
 int		ft_output(char **hold, char **line)
-{ 
+{
 	char *temp;
 	char *newl;
-	char *rest;
 
-	rest = ft_strchr(*hold, '\0');
 	newl = ft_strchr(*hold, '\n');
 	if (newl != NULL)
 	{
 		*newl = '\0';
-		*line = *hold;
+		*line = ft_strdup(*hold);
 		temp = ft_strdup(newl + 1);
-		*hold = temp;
+		ft_strdel(hold);
+		if (temp)
+			*hold = temp;
 	}
 	else
-		*line = ft_strdup(*hold);
-		ft_strdel(hold);
+	{
+		*line = *hold;
+		*hold = NULL;
+	}
 	return (1);
 }
 
